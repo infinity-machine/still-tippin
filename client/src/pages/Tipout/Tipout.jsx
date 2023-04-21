@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
+import { filterInactiveInputs, objectToArray } from '../../utils/input-utils';
 
 const Tipout = () => {
     const promptArray = [
@@ -91,17 +92,12 @@ const Tipout = () => {
 
         // NAMES ?
         if (promptIndex === 2) {
-            let namesData = {};
-            let names = []
-            for (let i = 0; i < Object.values(inputValue).length; i++) {
-                if (!!inputValue[i]) {
-                    names.push(inputValue[i]);
-                    namesData[inputValue[i]] = 0;
-                }
-            };
+            console.log(inputValue)
+            let hoursData = filterInactiveInputs(inputValue)
+            let names = objectToArray('keys', hoursData);
             setTipoutData({
-                ...tipoutData, 'hours': namesData
-            })
+                ...tipoutData, 'hours': hoursData
+            });
             updatePlaceholders(names);
         };
 
@@ -145,6 +141,10 @@ const Tipout = () => {
         updatePlaceholders();
     }, [activeInputs]);
 
+    useEffect(() => {
+        console.log(tipoutData)
+    }, [tipoutData])
+
     return (
         <div>
             {tipoutData['total_cash'] ? < Preview tipoutData={tipoutData} /> : <></>}
@@ -152,7 +152,7 @@ const Tipout = () => {
             {error ? <p>{error}</p> : <></>}
             {
                 showCalculated ? (
-                    < CalculatedView tipoutData={tipoutData}/>
+                    < CalculatedView tipoutData={tipoutData} />
                 ) : (
                     < Form handleNext={handleNext}
                         inputValue={inputValue}
