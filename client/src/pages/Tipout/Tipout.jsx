@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Tipout.css';
-import Preview from '../../components/Preview';
-import splitTips from '../../utils/functions';
+import { Form, Preview } from '../../components';
+// import splitTips from '../../utils/functions';
 
 const Tipout = () => {
 

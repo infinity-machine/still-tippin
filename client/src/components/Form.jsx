@@ -3,12 +3,12 @@ import React from 'react'
 const Form = (props) => {
 
     const handleInputChange = (e) => {
-        setInputValue({
-            ...inputValue,
+        props.setInputValue({
+            ...props.inputValue,
             [e.target.name]: e.target.value
         });
     };
-    
+
     return (
         <form onSubmit={props.handleNext}>
             <div>
