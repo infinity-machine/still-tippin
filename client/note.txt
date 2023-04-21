@@ -1,0 +1,8 @@
+if i request 3 inputs
+
+number_of = 3
+
+0 true
+1 true
+2 true
+3 false
