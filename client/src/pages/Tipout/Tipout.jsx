@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
-import { filterInactiveInputs, objectToArray } from '../../utils/input-utils';
+import { formatPlaceholders, filterInactiveInputs, objectToArray } from '../../utils/input-utils';
 
 const Tipout = () => {
     const promptArray = [
@@ -49,25 +49,6 @@ const Tipout = () => {
         });
     };
 
-    const updatePlaceholders = (strings_array) => {
-        if (activeInputs > 1) {
-            let updatedPlaceholders = {};
-            for (let i = 0; i < 5; i++) {
-                if (i < activeInputs) {
-                    if (!strings_array) updatedPlaceholders[i] = `EMPLOYEE ${i + 1}`
-                    if (!!strings_array) {
-                        updatedPlaceholders[i] = `${strings_array[i]} HOURS`;
-                    }
-                } else {
-                    updatedPlaceholders[i] = '...';
-                }
-            };
-            setPlaceholder({
-                ...updatedPlaceholders
-            });
-        };
-    };
-
     const handleNext = (e) => {
         e.preventDefault();
 
@@ -98,7 +79,10 @@ const Tipout = () => {
             setTipoutData({
                 ...tipoutData, 'hours': hoursData
             });
-            updatePlaceholders(names);
+            let updatedPlaceholders = formatPlaceholders(activeInputs, names);
+            setPlaceholder({
+                ...updatedPlaceholders
+            })
         };
 
         // HOURS ?
@@ -138,7 +122,10 @@ const Tipout = () => {
 
     useEffect(() => {
         handleActiveInputs();
-        updatePlaceholders();
+        if (activeInputs > 1) {
+            const placeholders = formatPlaceholders(activeInputs);
+            setPlaceholder({ ...placeholders })
+        }
     }, [activeInputs]);
 
     useEffect(() => {

@@ -1,3 +1,21 @@
+// FORMATS AN OBJECT OF PLACEHOLDERS TO BE UPDATED INTO STATE. 
+// IF PASSED A NAMES ARRAY, DYNAMICALLY SETS PLACHOLDERS WITH NAMES
+function formatPlaceholders(active_inputs, names) {
+    let updated_placeholders = {};
+    for (let i = 0; i < 5; i++) {
+        if (i < active_inputs) {
+            console.log(i)
+            if (!names) updated_placeholders[i] = `EMPLOYEE ${i + 1}`;
+            if (!!names) {
+                updated_placeholders[i] = `${names[i]} HOURS`;
+            };
+        } else {
+            updated_placeholders[i] = '...';
+        };
+    };
+    return updated_placeholders;
+};
+
 // RETURNS ARRAY OF INPUT VALUES
 const objectToArray = (key_or_value, input_object) => {
     if (key_or_value === 'keys') {
@@ -22,8 +40,8 @@ const filterInactiveInputs = (value_object) => {
         };
     };
     return filtered_inputs;
-}
+};
 
 export {
-    objectToArray, filterInactiveInputs
-}
+    formatPlaceholders, objectToArray, filterInactiveInputs
+};
