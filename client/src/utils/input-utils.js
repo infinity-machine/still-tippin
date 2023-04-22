@@ -14,35 +14,9 @@ const formatPlaceholders = (active_inputs, names) => {
                 updated_placeholders[i] = `${names[i]}`;
             };
         }
-        else {
-            console.log('heres the problem')
-            updated_placeholders[i] = '...';
-        };
     };
     return updated_placeholders;
 };
-
-// const formatPlaceholders = (active_inputs, names) => {
-//     let updated_placeholders = {};
-//     for (let i = 0; i < 5; i++) {
-//         if (i < active_inputs) {
-//             if (!names) {
-//                 console.log('!names')
-//                 updated_placeholders[i] = `EMPLOYEE ${i + 1}`
-//             }
-
-//             if (!!names) {
-//                 console.log('!!names')
-//                 updated_placeholders[i] = `${names[i]} HOURS`;
-//             };
-//         }
-//         else {
-//             console.log('heres the problem')
-//             updated_placeholders[i] = '...';
-//         };
-//     };
-//     return updated_placeholders;
-// };
 
 // RETURNS ARRAY OF INPUT VALUES
 const objectToArray = (key_or_value, input_object) => {
