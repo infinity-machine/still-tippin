@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
-import { 
-    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData 
+import {
+    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData
 } from '../../utils/input-utils';
 
 const Tipout = () => {
@@ -26,13 +26,7 @@ const Tipout = () => {
         3: '',
         4: ''
     });
-    const [inputsHidden, setInputsHidden] = useState({
-        0: false,
-        1: true,
-        2: true,
-        3: true,
-        4: true
-    });
+    const [inputsHidden, setInputsHidden] = useState({});
     const [placeholder, setPlaceholder] = useState({
         0: '$$$',
         1: '',
@@ -51,11 +45,40 @@ const Tipout = () => {
         });
     };
 
+    const clearPlaceholders = () => setPlaceholder({
+        0: '',
+        1: '',
+        2: '',
+        3: '',
+        4: ''
+    })
+
+    // const handleBack = () => {
+    //     if(promptIndex === 2) setPlaceholder({
+    //         ...placeholder, 0: '$$$'
+    //     })
+    //     if(promptIndex === 2){
+    //         setActiveInputs(1)
+    //         clearPlaceholders();
+    //         setPlaceholder({
+    //             ...placeholder, 0: '###'
+    //         });
+    //     }
+
+    //     if(promptIndex === 3){
+            
+    //     }
+
+
+    //     setPromptIndex(promptIndex - 1)
+    // }
+
     const handleNext = (e) => {
         e.preventDefault();
-    
+
         // TOTAL CASH ?
         if (promptIndex === 0) {
+            if (!inputValue[0]) return setError('ENTER TOTAL CASH TIPS');
             setTipoutData({
                 ...tipoutData, 'total_cash': inputValue[0]
             });
@@ -66,8 +89,7 @@ const Tipout = () => {
 
         // SPLIT HOW MANY WAYS ?
         if (promptIndex === 1) {
-            if (inputValue[0] < 2) return setError('TIPOUT MUST INCLUDE MORE THAN ONE PERSON');
-            if (inputValue[0] > 5) return setError('TIPOUT MUST NOT EXCEED 5 PEOPLE');
+            if (inputValue[0] < 2 || inputValue[0] > 5) return setError('TIPOUT MUST BE BETWEEN 1 AND 5 PEOPLE');
             setActiveInputs(inputValue[0]);
             let updatedPlaceholders = formatPlaceholders(inputValue[0]);
             setPlaceholder({
@@ -83,7 +105,7 @@ const Tipout = () => {
             let hours_data = formatHoursData(names);
             let updatedPlaceholders = formatPlaceholders(activeInputs, names);
             setTipoutData({
-                ...tipoutData, 
+                ...tipoutData,
                 'hours': hours_data, 'names': names
             });
             setPlaceholder({
@@ -112,7 +134,13 @@ const Tipout = () => {
 
     // SETS TO VISIBLE THE AMOUNT OF INPUTS REQUESTED, HIDES REMAINING
     const handleActiveInputs = () => {
-        if (activeInputs === 1) return false;
+        if (activeInputs === 1) return setInputsHidden({
+            0: false,
+            1: true,
+            2: true,
+            3: true,
+            4: true
+        })
         let updatedValues = {};
         for (let i = 0; i < 5; i++) {
             if (i < activeInputs) {
@@ -132,12 +160,6 @@ const Tipout = () => {
 
     useEffect(() => {
         handleActiveInputs();
-        // if (activeInputs > 1) {
-        //     console.log(activeInputs)
-        //     const placeholders = formatPlaceholders(activeInputs);
-        //     console.log(placeholder)
-        //     setPlaceholder({ ...placeholders })
-        // }
     }, [activeInputs]);
 
     useEffect(() => {
@@ -154,6 +176,7 @@ const Tipout = () => {
                     < CalculatedView tipoutData={tipoutData} />
                 ) : (
                     < Form handleNext={handleNext}
+                        // handleBack={handleBack}
                         inputValue={inputValue}
                         setInputValue={setInputValue}
                         inputType={inputType}
