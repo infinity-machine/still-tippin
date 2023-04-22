@@ -16,7 +16,7 @@ const Form = (props) => {
                     name={0}
                     id="input-1"
                     type={props.inputType}
-                    // placeholder={props.placeholder[0]}
+                    placeholder={props.placeholder[0]}
                     onChange={handleInputChange}
                     hidden={props.inputsHidden[0]}>
                 </input>
@@ -24,7 +24,7 @@ const Form = (props) => {
                     name={1}
                     id="input-2"
                     type={props.inputType}
-                    // placeholder={props.placeholder[1]}
+                    placeholder={props.placeholder[1]}
                     onChange={handleInputChange}
                     hidden={props.inputsHidden[1]}>
                 </input>
@@ -32,7 +32,7 @@ const Form = (props) => {
                     name={2}
                     id="input-3"
                     type={props.inputType}
-                    // placeholder={props.placeholder[2]}
+                    placeholder={props.placeholder[2]}
                     onChange={handleInputChange}
                     hidden={props.inputsHidden[2]}>
                 </input>
@@ -40,7 +40,7 @@ const Form = (props) => {
                     name={3}
                     id="input-4"
                     type={props.inputType}
-                    // placeholder={props.placeholder[3]}
+                    placeholder={props.placeholder[3]}
                     onChange={handleInputChange}
                     hidden={props.inputsHidden[3]}>
                 </input>
@@ -48,7 +48,7 @@ const Form = (props) => {
                     name={4}
                     id="input-5"
                     type={props.inputType}
-                    // placeholder={props.placeholder[4]}
+                    placeholder={props.placeholder[4]}
                     onChange={handleInputChange}
                     hidden={props.inputsHidden[4]}>
                 </input>

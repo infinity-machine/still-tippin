@@ -33,13 +33,13 @@ const Tipout = () => {
         3: true,
         4: true
     });
-    // const [placeholder, setPlaceholder] = useState({
-    //     0: '$$$',
-    //     1: '...',
-    //     2: '...',
-    //     3: '...',
-    //     4: '...'
-    // });
+    const [placeholder, setPlaceholder] = useState({
+        0: '$$$',
+        1: '',
+        2: '',
+        3: '',
+        4: ''
+    });
 
     const clearInputs = () => {
         setInputValue({
@@ -59,9 +59,9 @@ const Tipout = () => {
             setTipoutData({
                 ...tipoutData, 'total_cash': inputValue[0]
             });
-            // setPlaceholder({
-            //     ...placeholder, 0: '...'
-            // });
+            setPlaceholder({
+                ...placeholder, 0: '###'
+            });
         };
 
         // SPLIT HOW MANY WAYS ?
@@ -69,6 +69,10 @@ const Tipout = () => {
             if (inputValue[0] < 2) return setError('TIPOUT MUST INCLUDE MORE THAN ONE PERSON');
             if (inputValue[0] > 5) return setError('TIPOUT MUST NOT EXCEED 5 PEOPLE');
             setActiveInputs(inputValue[0]);
+            let updatedPlaceholders = formatPlaceholders(inputValue[0]);
+            setPlaceholder({
+                ...updatedPlaceholders
+            });
             setInputType('text');
         };
 
@@ -77,16 +81,15 @@ const Tipout = () => {
             let filtered_input = filterInactiveInputs(inputValue);
             let names = objectToArray('values', filtered_input);
             let hours_data = formatHoursData(names);
-            // let updatedPlaceholders = formatPlaceholders(activeInputs, names);
+            let updatedPlaceholders = formatPlaceholders(activeInputs, names);
             setTipoutData({
                 ...tipoutData, 
                 'hours': hours_data, 'names': names
             });
-            // setPlaceholder({
-            //     ...updatedPlaceholders
-            // });
+            setPlaceholder({
+                ...updatedPlaceholders
+            });
             setInputType('number');
-            console.log(inputValue)
         };
 
         // HOURS ?
@@ -154,7 +157,7 @@ const Tipout = () => {
                         inputValue={inputValue}
                         setInputValue={setInputValue}
                         inputType={inputType}
-                        // placeholder={placeholder}
+                        placeholder={placeholder}
                         inputsHidden={inputsHidden}
                         buttonText={buttonText} />
                 )
