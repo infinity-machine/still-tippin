@@ -33,13 +33,13 @@ const Tipout = () => {
         3: true,
         4: true
     });
-    const [placeholder, setPlaceholder] = useState({
-        0: '$$$',
-        1: '...',
-        2: '...',
-        3: '...',
-        4: '...'
-    });
+    // const [placeholder, setPlaceholder] = useState({
+    //     0: '$$$',
+    //     1: '...',
+    //     2: '...',
+    //     3: '...',
+    //     4: '...'
+    // });
 
     const clearInputs = () => {
         setInputValue({
@@ -53,14 +53,15 @@ const Tipout = () => {
 
     const handleNext = (e) => {
         e.preventDefault();
+    
         // TOTAL CASH ?
         if (promptIndex === 0) {
             setTipoutData({
                 ...tipoutData, 'total_cash': inputValue[0]
             });
-            setPlaceholder({
-                ...placeholder, 0: '...'
-            })
+            // setPlaceholder({
+            //     ...placeholder, 0: '...'
+            // });
         };
 
         // SPLIT HOW MANY WAYS ?
@@ -76,15 +77,16 @@ const Tipout = () => {
             let filtered_input = filterInactiveInputs(inputValue);
             let names = objectToArray('values', filtered_input);
             let hours_data = formatHoursData(names);
-            let updatedPlaceholders = formatPlaceholders(activeInputs, names);
+            // let updatedPlaceholders = formatPlaceholders(activeInputs, names);
             setTipoutData({
                 ...tipoutData, 
                 'hours': hours_data, 'names': names
             });
-            setPlaceholder({
-                ...updatedPlaceholders
-            });
+            // setPlaceholder({
+            //     ...updatedPlaceholders
+            // });
             setInputType('number');
+            console.log(inputValue)
         };
 
         // HOURS ?
@@ -121,12 +123,18 @@ const Tipout = () => {
         });
     };
 
+    // useEffect(() => {
+    //     console.log('fired!')
+    // }, [promptIndex])
+
     useEffect(() => {
         handleActiveInputs();
-        if (activeInputs > 1) {
-            const placeholders = formatPlaceholders(activeInputs);
-            setPlaceholder({ ...placeholders })
-        }
+        // if (activeInputs > 1) {
+        //     console.log(activeInputs)
+        //     const placeholders = formatPlaceholders(activeInputs);
+        //     console.log(placeholder)
+        //     setPlaceholder({ ...placeholders })
+        // }
     }, [activeInputs]);
 
     useEffect(() => {
@@ -146,7 +154,7 @@ const Tipout = () => {
                         inputValue={inputValue}
                         setInputValue={setInputValue}
                         inputType={inputType}
-                        placeholder={placeholder}
+                        // placeholder={placeholder}
                         inputsHidden={inputsHidden}
                         buttonText={buttonText} />
                 )
