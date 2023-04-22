@@ -1,18 +1,21 @@
 // FORMATS AN OBJECT OF PLACEHOLDERS TO BE UPDATED INTO STATE. 
 // IF PASSED A NAMES ARRAY, DYNAMICALLY SETS PLACHOLDERS WITH NAMES
-function formatPlaceholders(active_inputs, names) {
+const formatPlaceholders = (active_inputs, names) => {
     let updated_placeholders = {};
     for (let i = 0; i < 5; i++) {
         if (i < active_inputs) {
-            console.log(i)
-            if (!names) updated_placeholders[i] = `EMPLOYEE ${i + 1}`;
+            if (!names) updated_placeholders[i] = `EMPLOYEE ${i + 1}`
+
             if (!!names) {
                 updated_placeholders[i] = `${names[i]} HOURS`;
             };
-        } else {
+        }
+
+        else {
             updated_placeholders[i] = '...';
         };
     };
+
     return updated_placeholders;
 };
 
@@ -22,6 +25,7 @@ const objectToArray = (key_or_value, input_object) => {
         let keys = [...Object.keys(input_object)];
         return keys;
     };
+
     if (key_or_value === 'values') {
         let values = [...Object.values(input_object)];
         return values
@@ -29,19 +33,33 @@ const objectToArray = (key_or_value, input_object) => {
 };
 
 // FILTERS OUT INACTIVE INPUT VALUES FROM INPUTVALUE OBJECT
-const filterInactiveInputs = (value_object) => {
-    let values = [...Object.values(value_object)];
+const filterInactiveInputs = (input_object) => {
+    let values = [...Object.values(input_object)];
     let filtered_inputs = {}
 
     for (let i = 0; i < values.length; i++) {
-        if (!!value_object[i]) {
-            console.log(value_object[i])
-            filtered_inputs[values[i]] = 0;
+        if (!!values[i]) {
+            filtered_inputs[i] = values[i];
         };
     };
     return filtered_inputs;
 };
 
+// CREATES AN HOURS OBJECT IN TIPOUT DATA STATE OBJECT
+// IF CALLED WITHOUT HOURS, IT CREATES HOURS OBJECT WITH EACH NAME SET TO 0
+const formatHoursData = (names, hours) => {
+    let formatted_data = {}
+    for (let i = 0; i < names.length; i++) {
+        if (!hours) {
+            formatted_data[names[i]] = 0
+        };
+        if (hours) {
+            formatted_data[names[i]] = hours[i];
+        };
+    };
+    return formatted_data;
+};
+
 export {
-    formatPlaceholders, objectToArray, filterInactiveInputs
+    formatPlaceholders, objectToArray, filterInactiveInputs, formatHoursData
 };

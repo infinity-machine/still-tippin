@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
-import { formatPlaceholders, filterInactiveInputs, objectToArray } from '../../utils/input-utils';
+import { 
+    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData 
+} from '../../utils/input-utils';
 
 const Tipout = () => {
     const promptArray = [
@@ -51,7 +53,6 @@ const Tipout = () => {
 
     const handleNext = (e) => {
         e.preventDefault();
-
         // TOTAL CASH ?
         if (promptIndex === 0) {
             setTipoutData({
@@ -64,7 +65,6 @@ const Tipout = () => {
 
         // SPLIT HOW MANY WAYS ?
         if (promptIndex === 1) {
-            // LIMIT INPUT
             if (inputValue[0] < 2) return setError('TIPOUT MUST INCLUDE MORE THAN ONE PERSON');
             if (inputValue[0] > 5) return setError('TIPOUT MUST NOT EXCEED 5 PEOPLE');
             setActiveInputs(inputValue[0]);
@@ -73,32 +73,33 @@ const Tipout = () => {
 
         // NAMES ?
         if (promptIndex === 2) {
-            console.log(inputValue)
-            let hoursData = filterInactiveInputs(inputValue)
-            let names = objectToArray('keys', hoursData);
-            setTipoutData({
-                ...tipoutData, 'hours': hoursData
-            });
+            let filtered_input = filterInactiveInputs(inputValue);
+            let names = objectToArray('values', filtered_input);
+            let hours_data = formatHoursData(names);
             let updatedPlaceholders = formatPlaceholders(activeInputs, names);
+            setTipoutData({
+                ...tipoutData, 
+                'hours': hours_data, 'names': names
+            });
             setPlaceholder({
                 ...updatedPlaceholders
-            })
+            });
+            setInputType('number');
         };
 
         // HOURS ?
         if (promptIndex === 3) {
-            let hoursData = {};
-            for (let i = 0; i < Object.values(inputValue).length; i++) {
-                if (!!inputValue[i]) {
-                    hoursData[Object.keys(tipoutData['hours'])[i]] = inputValue[i];
-                }
-            };
+            let filtered_input = filterInactiveInputs(inputValue);
+            let names = tipoutData['names'];
+            let hours = objectToArray('values', filtered_input);
+            let formatted_data = formatHoursData(names, hours);
             setTipoutData({
-                ...tipoutData, 'hours': hoursData
+                ...tipoutData, 'hours': formatted_data
             });
             setShowCalculated(true);
         };
-        // RESET FORM, PROCEED TO NEXT
+
+        // RESET FORM, PROCEED
         clearInputs();
         setError(false);
         setPromptIndex(promptIndex + 1);
