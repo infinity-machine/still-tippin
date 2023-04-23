@@ -73,6 +73,7 @@ const Tipout = () => {
     //     setPromptIndex(promptIndex - 1)
     // }
 
+    // CORE 
     const handleNext = (e) => {
         e.preventDefault();
 
@@ -131,6 +132,9 @@ const Tipout = () => {
         setError(false);
         setPromptIndex(promptIndex + 1);
     };
+
+
+    // SEPERATE THIS LOGIC!
 
     // SETS TO VISIBLE THE AMOUNT OF INPUTS REQUESTED, HIDES REMAINING
     const handleActiveInputs = () => {
