@@ -8,7 +8,7 @@ import {
 const Tipout = () => {
     const promptArray = [
         'Total cash tips for shift?',
-        'How many people?',
+        'How many people? (including yourself)',
         'Names?',
         'Enter hours worked for each person on shift'
     ];
@@ -76,7 +76,7 @@ const Tipout = () => {
         // SPLIT HOW MANY WAYS ?
         if (promptIndex === 1) {
             if (inputValue[0] < 2 || inputValue[0] > 5) return setError('TIPOUT MUST BE BETWEEN 1 AND 5 PEOPLE');
-            setActiveInputs(inputValue[0]);
+            setActiveInputs(inputValue[0] - 1);
             let updatedPlaceholders = formatPlaceholders(inputValue[0]);
             setPlaceholder({
                 ...updatedPlaceholders
@@ -86,6 +86,7 @@ const Tipout = () => {
 
         // NAMES ?
         if (promptIndex === 2) {
+            // HANDLE ONE INPUT STUFF
             let filtered_input = filterInactiveInputs(inputValue);
             let names = objectToArray('values', filtered_input);
             let hours_data = formatHoursData(names);
@@ -94,6 +95,7 @@ const Tipout = () => {
                 ...tipoutData,
                 'hours': hours_data, 'names': names
             });
+            setActiveInputs(activeInputs + 1);
             setPlaceholder({
                 ...updatedPlaceholders
             });

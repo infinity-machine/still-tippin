@@ -7,14 +7,12 @@ const formatPlaceholders = (active_inputs, names) => {
         if (i < active_inputs) {
             if (!names) {
                 if(i === 0) updated_placeholders[i] = 'YOURSELF';
-                if(i > 0) updated_placeholders[i] = `employee ${i + 1}`;
+                console.log(i);
+                // updated_placeholders[0] = 'YOURSELF'
+                updated_placeholders[i] = `employee ${i + 1}`
             }
-
             if (!!names) {
-                // updated_placeholders[0] = 'YOUR HOURS'
-                // updated_placeholders[i] = `${names[i]}`;
-                if(i === 0) updated_placeholders[i] = 'YOUR HOURS';
-                if(i > 0) updated_placeholders[i] = `${names[i]}`;
+                updated_placeholders[i] = `${names[i]}`;
             };
         }
     };
