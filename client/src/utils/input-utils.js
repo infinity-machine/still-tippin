@@ -3,19 +3,22 @@
 // PASSED WITH NAMES ARRAY SETS TO ${employee_name}1, 2, ETC
 const formatPlaceholders = (active_inputs, names) => {
     let updated_placeholders = {};
+
+    // ARE NULL PLACEHOLDERS A PROBLEM? 
+
     for (let i = 0; i < 5; i++) {
         if (i < active_inputs) {
             if (!names) {
-                if(i === 0) updated_placeholders[i] = 'YOURSELF';
-                console.log(i);
-                // updated_placeholders[0] = 'YOURSELF'
-                updated_placeholders[i] = `employee ${i + 1}`
+                updated_placeholders[i] = `coworker ${i + 1}`
             }
             if (!!names) {
-                updated_placeholders[i] = `${names[i]}`;
+                if(i === 0) updated_placeholders[i] = 'YOUR HOURS'
+                if(i > 0) updated_placeholders[i] = `${names[i]}'s hours`;
             };
         }
     };
+
+    console.log(updated_placeholders)
     return updated_placeholders;
 };
 
@@ -43,6 +46,13 @@ const filterInactiveInputs = (input_object) => {
         };
     };
     return filtered_inputs;
+};
+
+// RETURNS FALSE IF ANY INPUTS ARE EMPTY
+const inputsFilled = (input_object, active_inputs) => {
+    let values = [...Object.values(input_object)];
+    if(values.length < active_inputs) return false;
+    return true;
 };
 
 // CREATES AN HOURS OBJECT IN TIPOUT DATA STATE OBJECT
@@ -78,5 +88,5 @@ const handleActiveInputs = (inputs_requested) => {
     };
 };
 export {
-    formatPlaceholders, objectToArray, filterInactiveInputs, formatHoursData, handleActiveInputs
+    formatPlaceholders, objectToArray, filterInactiveInputs, inputsFilled, formatHoursData, handleActiveInputs
 };
