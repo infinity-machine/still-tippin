@@ -14,7 +14,7 @@ const Preview = (props) => {
     }, [props.tipoutData]);
     return (
         <div>
-            <h2>TOTAL CASH: ${props.tipoutData['total_cash']}</h2>
+            <h2 className="txt_center">TOTAL CASH: ${props.tipoutData['total_cash']}</h2>
             {
                 names ? (
                     names.map((name, index) => {
