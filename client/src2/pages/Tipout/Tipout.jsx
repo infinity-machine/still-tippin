@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
 import {
-    formatPlaceholders, filterInactiveInputs, inputsFilled, objectToArray, formatHoursData, handleActiveInputs
+    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData
 } from '../../utils/input-utils';
 
 const Tipout = () => {
     const promptArray = [
         'Total cash tips for shift?',
-        'How many people? (including yourself)',
-        'Names of coworkers?',
+        'How many people?',
+        'Names?',
         'Enter hours worked for each person on shift'
     ];
     const [promptIndex, setPromptIndex] = useState(0);
@@ -20,24 +20,38 @@ const Tipout = () => {
     const [inputType, setInputType] = useState('number');
     const [activeInputs, setActiveInputs] = useState(1);
     const [inputValue, setInputValue] = useState({
-        0: '', 1: '', 2: '', 3: '', 4: ''
+        0: '',
+        1: '',
+        2: '',
+        3: '',
+        4: ''
     });
-    const [inputsHidden, setInputsHidden] = useState({
-        0: false, 1: true, 2: true, 3: true, 4: true
-    });
+    const [inputsHidden, setInputsHidden] = useState({});
     const [placeholder, setPlaceholder] = useState({
-        0: '$$$', 1: '', 2: '', 3: '', 4: ''
+        0: '$$$',
+        1: '',
+        2: '',
+        3: '',
+        4: ''
     });
 
     const clearInputs = () => {
         setInputValue({
-            0: '', 1: '', 2: '', 3: '', 4: ''
+            0: '',
+            1: '',
+            2: '',
+            3: '',
+            4: ''
         });
     };
 
     const clearPlaceholders = () => setPlaceholder({
-        0: '', 1: '', 2: '', 3: '', 4: ''
-    });
+        0: '',
+        1: '',
+        2: '',
+        3: '',
+        4: ''
+    })
 
     // const handleBack = () => {
     //     if(promptIndex === 2) setPlaceholder({
@@ -52,13 +66,14 @@ const Tipout = () => {
     //     }
 
     //     if(promptIndex === 3){
-
+            
     //     }
 
 
     //     setPromptIndex(promptIndex - 1)
     // }
 
+    // CORE 
     const handleNext = (e) => {
         e.preventDefault();
 
@@ -75,67 +90,27 @@ const Tipout = () => {
 
         // SPLIT HOW MANY WAYS ?
         if (promptIndex === 1) {
-
             if (inputValue[0] < 2 || inputValue[0] > 5) return setError('TIPOUT MUST BE BETWEEN 1 AND 5 PEOPLE');
-
-            setTipoutData({
-                ...tipoutData,
-                'hours': {
-                    'user': 0
-                },
-                'names': ['user']
+            setActiveInputs(inputValue[0]);
+            let updatedPlaceholders = formatPlaceholders(inputValue[0]);
+            setPlaceholder({
+                ...updatedPlaceholders
             });
-
-            if (parseInt(inputValue[0]) === 2) {
-                // DONT HAVE TO RESET ACTIVE INPUTS BEACUSE IT IS STILL ONE
-                setPlaceholder({
-                    ...placeholder, 0: "coworker's name"
-                })
-            }
-            if (parseInt(inputValue[0]) > 2) {
-                setActiveInputs(inputValue[0] - 1);
-                let updatedPlaceholders = formatPlaceholders(inputValue[0] - 1);
-                setPlaceholder({
-                    ...updatedPlaceholders
-                });
-
-            }
             setInputType('text');
         };
 
         // NAMES ?
         if (promptIndex === 2) {
-            // HANDLE ONE INPUT STUFF
-
-            // GET EXISTING "USER" ENTRY IN HOURS OBJECT AND NAMES ARRAY
-            let data_to_update = tipoutData['hours'];
-            let names = [...tipoutData['names']];
-
-            if (activeInputs === 1) {
-                // APPEND ADDED NAME TO NAME ARRAY AND HOURS OBJECT
-                if (!inputValue[0]) return setError('ENTER COWORKER NAME')
-                data_to_update[inputValue[0]] = 0;
-                names.push(inputValue[0]);
-                setTipoutData({
-                    ...tipoutData, 'hours': data_to_update, 'names': names
-                });
-            }
-            if (activeInputs > 1) {
-                let filtered_input = filterInactiveInputs(inputValue);
-                let inputs_filled = inputsFilled(filtered_input, activeInputs)
-                if (!inputs_filled) return setError('ENTER COWORKER NAMES');
-                let names_to_add = objectToArray('values', filtered_input);
-                names.push(...names_to_add)
-                let hours_data = formatHoursData(names);
-                setTipoutData({
-                    ...tipoutData,
-                    'hours': hours_data, 'names': names
-                });
-            }
-            setActiveInputs(activeInputs + 1);
-            let updated_placeholders = formatPlaceholders(activeInputs + 1, names)
+            let filtered_input = filterInactiveInputs(inputValue);
+            let names = objectToArray('values', filtered_input);
+            let hours_data = formatHoursData(names);
+            let updatedPlaceholders = formatPlaceholders(activeInputs, names);
+            setTipoutData({
+                ...tipoutData,
+                'hours': hours_data, 'names': names
+            });
             setPlaceholder({
-                ...updated_placeholders
+                ...updatedPlaceholders
             });
             setInputType('number');
         };
@@ -143,8 +118,6 @@ const Tipout = () => {
         // HOURS ?
         if (promptIndex === 3) {
             let filtered_input = filterInactiveInputs(inputValue);
-            let inputs_filled = inputsFilled(filtered_input, activeInputs)
-            if (!inputs_filled) return setError('ENTER COWORKER HOURS');
             let names = tipoutData['names'];
             let hours = objectToArray('values', filtered_input);
             let formatted_data = formatHoursData(names, hours);
@@ -160,14 +133,42 @@ const Tipout = () => {
         setPromptIndex(promptIndex + 1);
     };
 
+
+    // SEPERATE THIS LOGIC!
+
+    // SETS TO VISIBLE THE AMOUNT OF INPUTS REQUESTED, HIDES REMAINING
+    const handleActiveInputs = () => {
+        if (activeInputs === 1) return setInputsHidden({
+            0: false,
+            1: true,
+            2: true,
+            3: true,
+            4: true
+        })
+        let updatedValues = {};
+        for (let i = 0; i < 5; i++) {
+            if (i < activeInputs) {
+                updatedValues[i] = false;
+            } else {
+                updatedValues[i] = true;
+            }
+        };
+        setInputsHidden({
+            ...updatedValues
+        });
+    };
+
+    // useEffect(() => {
+    //     console.log('fired!')
+    // }, [promptIndex])
+
     useEffect(() => {
-        let active_inputs = handleActiveInputs(activeInputs);
-        setInputsHidden(active_inputs);
+        handleActiveInputs();
     }, [activeInputs]);
 
     useEffect(() => {
-        console.log(tipoutData);
-    }, [tipoutData]);
+        console.log(tipoutData)
+    }, [tipoutData])
 
     return (
         <div>

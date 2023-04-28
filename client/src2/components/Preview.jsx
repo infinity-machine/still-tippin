@@ -11,10 +11,10 @@ const Preview = (props) => {
             const hoursArray = Object.values(props.tipoutData['hours']);
             setHours(hoursArray);
         };
-    }, [props.tipoutData]);
+    }, [props.tipoutData['hours']]);
     return (
         <div>
-            <h2 className="txt_center">TOTAL CASH: ${props.tipoutData['total_cash']}</h2>
+            <h2>TOTAL CASH: ${props.tipoutData['total_cash']}</h2>
             {
                 names ? (
                     names.map((name, index) => {
