@@ -9,7 +9,7 @@ const Tipout = () => {
     const promptArray = [
         'Total cash tips for shift?',
         'How many people? (including yourself)',
-        'Names?',
+        'Names of coworkers?',
         'Enter hours worked for each person on shift'
     ];
     const [promptIndex, setPromptIndex] = useState(0);
@@ -52,7 +52,7 @@ const Tipout = () => {
     //     }
 
     //     if(promptIndex === 3){
-            
+
     //     }
 
 
@@ -75,29 +75,64 @@ const Tipout = () => {
 
         // SPLIT HOW MANY WAYS ?
         if (promptIndex === 1) {
+
             if (inputValue[0] < 2 || inputValue[0] > 5) return setError('TIPOUT MUST BE BETWEEN 1 AND 5 PEOPLE');
-            setActiveInputs(inputValue[0] - 1);
-            let updatedPlaceholders = formatPlaceholders(inputValue[0]);
-            setPlaceholder({
-                ...updatedPlaceholders
+
+            setTipoutData({
+                ...tipoutData,
+                'hours': {
+                    'user': 0
+                },
+                'names': ['user']
             });
+
+            if (parseInt(inputValue[0]) === 2) {
+                // DONT HAVE TO RESET ACTIVE INPUTS BEACUSE IT IS STILL ONE
+                setPlaceholder({
+                    ...placeholder, 0: "coworker's name"
+                })
+            }
+            if (parseInt(inputValue[0]) > 2) {
+                setActiveInputs(inputValue[0] - 1);
+                let updatedPlaceholders = formatPlaceholders(inputValue[0] - 1);
+                setPlaceholder({
+                    ...updatedPlaceholders
+                });
+
+            }
             setInputType('text');
         };
 
         // NAMES ?
         if (promptIndex === 2) {
             // HANDLE ONE INPUT STUFF
-            let filtered_input = filterInactiveInputs(inputValue);
-            let names = objectToArray('values', filtered_input);
-            let hours_data = formatHoursData(names);
-            let updatedPlaceholders = formatPlaceholders(activeInputs, names);
-            setTipoutData({
-                ...tipoutData,
-                'hours': hours_data, 'names': names
-            });
+
+            // GET EXISTING "USER" ENTRY IN HOURS OBJECT AND NAMES ARRAY
+            let data_to_update = tipoutData['hours'];
+            let names = [...tipoutData['names']];
+
+            if (activeInputs === 1) {
+                // APPEND ADDED NAME TO NAME ARRAY AND HOURS OBJECT
+                data_to_update[inputValue[0]] = 0;
+                names.push(inputValue[0]);
+                setTipoutData({
+                    ...tipoutData, 'hours': data_to_update, 'names': names
+                });
+            }
+            if (activeInputs > 1) {
+                let filtered_input = filterInactiveInputs(inputValue);
+                let names_to_add = objectToArray('values', filtered_input);
+                names.push(...names_to_add)
+                let hours_data = formatHoursData(names);
+                setTipoutData({
+                    ...tipoutData,
+                    'hours': hours_data, 'names': names
+                });
+            }
             setActiveInputs(activeInputs + 1);
+            let updated_placeholders = formatPlaceholders(activeInputs + 1, names)
             setPlaceholder({
-                ...updatedPlaceholders
+                ...updated_placeholders
             });
             setInputType('number');
         };
@@ -126,8 +161,8 @@ const Tipout = () => {
     }, [activeInputs]);
 
     useEffect(() => {
-        console.log(tipoutData)
-    }, [tipoutData])
+        console.log(tipoutData);
+    }, [tipoutData]);
 
     return (
         <div>
