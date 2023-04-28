@@ -48,6 +48,13 @@ const filterInactiveInputs = (input_object) => {
     return filtered_inputs;
 };
 
+// RETURNS FALSE IF ANY INPUTS ARE EMPTY
+const inputsFilled = (input_object, active_inputs) => {
+    let values = [...Object.values(input_object)];
+    if(values.length < active_inputs) return false;
+    return true;
+};
+
 // CREATES AN HOURS OBJECT IN TIPOUT DATA STATE OBJECT
 // CALLED WITH ONLY NAMES, CREATES HOURS OBJECT WITH EACH NAME SET TO 0
 // CALLED WITH NAMES AND HOURS SETS BOTH
@@ -81,5 +88,5 @@ const handleActiveInputs = (inputs_requested) => {
     };
 };
 export {
-    formatPlaceholders, objectToArray, filterInactiveInputs, formatHoursData, handleActiveInputs
+    formatPlaceholders, objectToArray, filterInactiveInputs, inputsFilled, formatHoursData, handleActiveInputs
 };

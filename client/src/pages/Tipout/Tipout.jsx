@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
 import {
-    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData, handleActiveInputs
+    formatPlaceholders, filterInactiveInputs, inputsFilled, objectToArray, formatHoursData, handleActiveInputs
 } from '../../utils/input-utils';
 
 const Tipout = () => {
@@ -113,6 +113,7 @@ const Tipout = () => {
 
             if (activeInputs === 1) {
                 // APPEND ADDED NAME TO NAME ARRAY AND HOURS OBJECT
+                if (!inputValue[0]) return setError('ENTER COWORKER NAME')
                 data_to_update[inputValue[0]] = 0;
                 names.push(inputValue[0]);
                 setTipoutData({
@@ -121,6 +122,8 @@ const Tipout = () => {
             }
             if (activeInputs > 1) {
                 let filtered_input = filterInactiveInputs(inputValue);
+                let inputs_filled = inputsFilled(filtered_input, activeInputs)
+                if (!inputs_filled) return setError('ENTER COWORKER NAMES');
                 let names_to_add = objectToArray('values', filtered_input);
                 names.push(...names_to_add)
                 let hours_data = formatHoursData(names);
@@ -140,6 +143,8 @@ const Tipout = () => {
         // HOURS ?
         if (promptIndex === 3) {
             let filtered_input = filterInactiveInputs(inputValue);
+            let inputs_filled = inputsFilled(filtered_input, activeInputs)
+            if (!inputs_filled) return setError('ENTER COWORKER HOURS');
             let names = tipoutData['names'];
             let hours = objectToArray('values', filtered_input);
             let formatted_data = formatHoursData(names, hours);
