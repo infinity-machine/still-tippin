@@ -3,7 +3,11 @@ import React from 'react'
 const Form = (props) => {
 
     const handleInputChange = (e) => {
-        props.setInputValue({
+        if(e.target.placeholder === 'YOURSELF') props.setInputValue({
+            ...props.inputValue,
+            [e.target.name]: 'YOURSELF'
+        });
+        else props.setInputValue({
             ...props.inputValue,
             [e.target.name]: e.target.value
         });

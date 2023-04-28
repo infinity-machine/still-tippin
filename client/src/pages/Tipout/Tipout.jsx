@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
 import {
-    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData
+    formatPlaceholders, filterInactiveInputs, objectToArray, formatHoursData, handleActiveInputs
 } from '../../utils/input-utils';
 
 const Tipout = () => {
@@ -20,38 +20,24 @@ const Tipout = () => {
     const [inputType, setInputType] = useState('number');
     const [activeInputs, setActiveInputs] = useState(1);
     const [inputValue, setInputValue] = useState({
-        0: '',
-        1: '',
-        2: '',
-        3: '',
-        4: ''
+        0: '', 1: '', 2: '', 3: '', 4: ''
     });
-    const [inputsHidden, setInputsHidden] = useState({});
+    const [inputsHidden, setInputsHidden] = useState({
+        0: false, 1: true, 2: true, 3: true, 4: true
+    });
     const [placeholder, setPlaceholder] = useState({
-        0: '$$$',
-        1: '',
-        2: '',
-        3: '',
-        4: ''
+        0: '$$$', 1: '', 2: '', 3: '', 4: ''
     });
 
     const clearInputs = () => {
         setInputValue({
-            0: '',
-            1: '',
-            2: '',
-            3: '',
-            4: ''
+            0: '', 1: '', 2: '', 3: '', 4: ''
         });
     };
 
     const clearPlaceholders = () => setPlaceholder({
-        0: '',
-        1: '',
-        2: '',
-        3: '',
-        4: ''
-    })
+        0: '', 1: '', 2: '', 3: '', 4: ''
+    });
 
     // const handleBack = () => {
     //     if(promptIndex === 2) setPlaceholder({
@@ -132,34 +118,9 @@ const Tipout = () => {
         setPromptIndex(promptIndex + 1);
     };
 
-    // SETS TO VISIBLE THE AMOUNT OF INPUTS REQUESTED, HIDES REMAINING
-    const handleActiveInputs = () => {
-        if (activeInputs === 1) return setInputsHidden({
-            0: false,
-            1: true,
-            2: true,
-            3: true,
-            4: true
-        })
-        let updatedValues = {};
-        for (let i = 0; i < 5; i++) {
-            if (i < activeInputs) {
-                updatedValues[i] = false;
-            } else {
-                updatedValues[i] = true;
-            }
-        };
-        setInputsHidden({
-            ...updatedValues
-        });
-    };
-
-    // useEffect(() => {
-    //     console.log('fired!')
-    // }, [promptIndex])
-
     useEffect(() => {
-        handleActiveInputs();
+        let active_inputs = handleActiveInputs(activeInputs);
+        setInputsHidden(active_inputs);
     }, [activeInputs]);
 
     useEffect(() => {
