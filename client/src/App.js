@@ -1,8 +1,10 @@
 import Tipout from './pages/Tipout/Tipout';
+import Home from './pages/home/Home';
 function App() {
   return (
-    <div className="margin_lock">
-      < Tipout />
+    <div>
+      {/* < Tipout /> */}
+    < Home />
     </div>
   );
 };

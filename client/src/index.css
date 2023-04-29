@@ -19,6 +19,7 @@ code {
 
 .flex_container{
   display: flex;
+  /* height: 100vh; */
 }
 
 .flex_stack{
@@ -40,4 +41,8 @@ code {
 
 .txt_right{
   text-align: right;
+}
+
+.container{
+  height: 100vh;
 }
