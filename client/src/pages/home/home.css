@@ -1,8 +1,8 @@
-#still-png{
+#still-img{
     width: 380px;
 }
 
-#tippin-png{
+#tippin-img{
     width: 380px;
 }
 
@@ -11,13 +11,13 @@
     width: 380px;
 }
 
-#start-btn{
+/* #start-btn{
     height:100%;
     width: 100%;
     opacity: 50%;
-}
+} */
 
-#home{
+.background{
     /* width: 300px;
     height: 300px; */
     background-image: url('../../assets/flamestippin2.jpg');

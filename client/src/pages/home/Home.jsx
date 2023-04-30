@@ -1,26 +1,28 @@
 import React from 'react'
-import still from '../../assets/STILL.png';
-import tippin from '../../assets/TIPPIN.png';
+import still from '../../assets/STILL-black.png';
+import tippin from '../../assets/TIPPIN-black.png';
 import background from '../../assets/flamestippin2.jpg';
 import './home.css'
 
 const Home = () => {
     return (
-        <div id="home" className="margin_lock">
-            {/* <img src={background} 
-                alt="" 
-                id="background"/> */}
-            <div className="container flex_container flex_stack flex_center">
-                <img src={still}
-                    alt="still"
-                    id="still-png" />
+        <div className="margin_lock">
+            <div id="home"
+                className="container flex_container flex_center">
+                <div className="background">
+                    <img src={still}
+                        alt="still"
+                        id="still-img" />
                     <div id="start-tippin"
-                        className="flex_container">
-                        <button id="start-btn">START TIPPIN!</button>
+                        className="container flex_container flex_center">
+                        <div className="">
+                            <button id="start-btn">START TIPPIN!</button>
+                        </div>
                     </div>
-                <img src={tippin}
-                    alt="tippin"
-                    id="tippin-png" />
+                    <img src={tippin}
+                        alt="tippin"
+                        id="tippin-img" />
+                </div>
             </div>
         </div>
 
