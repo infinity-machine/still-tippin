@@ -87,7 +87,6 @@ const Tipout = () => {
             });
 
             if (parseInt(inputValue[0]) === 2) {
-                // DONT HAVE TO RESET ACTIVE INPUTS BEACUSE IT IS STILL ONE
                 setPlaceholder({
                     ...placeholder, 0: "coworker's name"
                 })
@@ -160,17 +159,25 @@ const Tipout = () => {
         setPromptIndex(promptIndex + 1);
     };
 
+
+    // MAKE TIPOUT LOGIC REACT TO PROMPTINDEX CHANGES INSTEAD OF CLICK
+    useEffect(() => {
+
+    }, [promptIndex])
+    //
+
     useEffect(() => {
         let active_inputs = handleActiveInputs(activeInputs);
         setInputsHidden(active_inputs);
     }, [activeInputs]);
 
+    // TEST
     useEffect(() => {
         console.log(tipoutData);
     }, [tipoutData]);
 
     return (
-        <div>
+        <div className="margin_lock">
             {tipoutData['total_cash'] ? < Preview tipoutData={tipoutData} /> : <></>}
             <h1>{promptArray[promptIndex]}</h1>
             {error ? <p>{error}</p> : <></>}
