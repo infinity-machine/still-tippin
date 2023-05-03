@@ -22,7 +22,7 @@ export default function splitTips(total_cash, hours_array) {
 
   for (let i = 0; i < percent_array.length; i++) {
     let tip = total_cash * percent_array[i];
-    tips_array.push(tip.toFixed(2));
+    tips_array.push(tip.toFixed());
   };
 
   return tips_array;

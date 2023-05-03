@@ -5,6 +5,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: gold;
 }
 
 code {
@@ -43,6 +45,19 @@ code {
   text-align: right;
 }
 
-.container{
+.base{
   height: 100vh;
+  /* width: 100vw; */
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.bottom{
+  bottom: 0;
 }

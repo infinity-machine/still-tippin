@@ -9,27 +9,21 @@ const Home = (props) => {
     const handleClick = () => props.setTipoutMode(true)
 
     return (
-        <div className="margin_lock">
-            <div
-                className="container flex_container flex_center background-img">
+        <div>
+            <img src={still}
+                alt="still"
+                id="still-img" />
+            <div id="middle-element"
+                className="container flex_container flex_center">
                 <div>
-                    <img src={still}
-                        alt="still"
-                        id="still-img" />
-                    <div id="middle-element"
-                        className="container flex_container flex_center">
-                        <div>
-                            <button
-                                    onClick={handleClick}>START TIPPIN!</button>
-                        </div>
-                    </div>
-                    <img src={tippin}
-                        alt="tippin"
-                        id="tippin-img" />
+                    <button
+                        onClick={handleClick}>START TIPPIN!</button>
                 </div>
             </div>
+            <img src={tippin}
+                alt="tippin"
+                id="tippin-img" />
         </div>
-
     )
 }
 

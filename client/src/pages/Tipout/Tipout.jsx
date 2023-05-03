@@ -35,30 +35,6 @@ const Tipout = () => {
         });
     };
 
-    const clearPlaceholders = () => setPlaceholder({
-        0: '', 1: '', 2: '', 3: '', 4: ''
-    });
-
-    // const handleBack = () => {
-    //     if(promptIndex === 2) setPlaceholder({
-    //         ...placeholder, 0: '$$$'
-    //     })
-    //     if(promptIndex === 2){
-    //         setActiveInputs(1)
-    //         clearPlaceholders();
-    //         setPlaceholder({
-    //             ...placeholder, 0: '###'
-    //         });
-    //     }
-
-    //     if(promptIndex === 3){
-
-    //     }
-
-
-    //     setPromptIndex(promptIndex - 1)
-    // }
-
     const handleNext = (e) => {
         e.preventDefault();
 
@@ -177,7 +153,7 @@ const Tipout = () => {
     }, [tipoutData]);
 
     return (
-        <div className="margin_lock">
+        <div>
             {tipoutData['total_cash'] ? < Preview tipoutData={tipoutData} /> : <></>}
             <h1>{promptArray[promptIndex]}</h1>
             {error ? <p>{error}</p> : <></>}
