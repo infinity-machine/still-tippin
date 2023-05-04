@@ -39,11 +39,15 @@ const Tipout = () => {
         e.preventDefault();
 
         // TOTAL CASH ?
+        
         if (promptIndex === 0) {
+
             if (!inputValue[0]) return setError('ENTER TOTAL CASH TIPS');
+
             setTipoutData({
                 ...tipoutData, 'total_cash': inputValue[0]
             });
+
             setPlaceholder({
                 ...placeholder, 0: '###'
             });

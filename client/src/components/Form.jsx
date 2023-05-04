@@ -11,7 +11,6 @@ const Form = (props) => {
 
     return (
         <div>
-            {/* <button onClick={props.handleBack}>BACK</button> */}
             <form onSubmit={props.handleNext}
                 className="flex_container">
                 <div className="flex_container absolute bottom">

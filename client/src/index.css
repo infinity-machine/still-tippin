@@ -14,6 +14,11 @@ code {
     monospace;
 }
 
+.core{
+  height: 480px;
+  width: 400px;
+}
+
 .margin_lock {
   width: 380px;
   margin: auto;
@@ -21,11 +26,11 @@ code {
 
 .flex_container{
   display: flex;
-  /* height: 100vh; */
 }
 
 .flex_stack{
   flex-direction: column;
+  align-items: space-between;
 }
 
 .flex_center{
@@ -47,7 +52,6 @@ code {
 
 .base{
   height: 100vh;
-  /* width: 100vw; */
 }
 
 .relative{
@@ -60,4 +64,14 @@ code {
 
 .bottom{
   bottom: 0;
+}
+
+.background-img{
+  background-image: url('assets/flamestippin2.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.flex-1{
+  flex: 1;
 }

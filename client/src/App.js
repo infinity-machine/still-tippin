@@ -6,7 +6,7 @@ function App() {
 
   return (
     <div className="base flex_container flex_center">
-      <div className="background-img relative">
+      <div className="relative">
         {
           tipoutMode ? < Tipout /> : < Home tipoutMode={tipoutMode} setTipoutMode={setTipoutMode} />
         }

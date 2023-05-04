@@ -9,12 +9,13 @@ const Home = (props) => {
     const handleClick = () => props.setTipoutMode(true)
 
     return (
-        <div>
+        <div className="core flex_container flex_stack background-img">
             <img src={still}
                 alt="still"
-                id="still-img" />
+                id="still-img"
+                className="flex-1" />
             <div id="middle-element"
-                className="container flex_container flex_center">
+                className="container flex_container flex_center flex-1">
                 <div>
                     <button
                         onClick={handleClick}>START TIPPIN!</button>
@@ -22,7 +23,8 @@ const Home = (props) => {
             </div>
             <img src={tippin}
                 alt="tippin"
-                id="tippin-img" />
+                id="tippin-img"
+                className="flex-1" />
         </div>
     )
 }
