@@ -35,39 +35,19 @@ const Tipout = () => {
         });
     };
 
-    const clearPlaceholders = () => setPlaceholder({
-        0: '', 1: '', 2: '', 3: '', 4: ''
-    });
-
-    // const handleBack = () => {
-    //     if(promptIndex === 2) setPlaceholder({
-    //         ...placeholder, 0: '$$$'
-    //     })
-    //     if(promptIndex === 2){
-    //         setActiveInputs(1)
-    //         clearPlaceholders();
-    //         setPlaceholder({
-    //             ...placeholder, 0: '###'
-    //         });
-    //     }
-
-    //     if(promptIndex === 3){
-
-    //     }
-
-
-    //     setPromptIndex(promptIndex - 1)
-    // }
-
     const handleNext = (e) => {
         e.preventDefault();
 
         // TOTAL CASH ?
+        
         if (promptIndex === 0) {
+
             if (!inputValue[0]) return setError('ENTER TOTAL CASH TIPS');
+
             setTipoutData({
                 ...tipoutData, 'total_cash': inputValue[0]
             });
+
             setPlaceholder({
                 ...placeholder, 0: '###'
             });
@@ -87,7 +67,6 @@ const Tipout = () => {
             });
 
             if (parseInt(inputValue[0]) === 2) {
-                // DONT HAVE TO RESET ACTIVE INPUTS BEACUSE IT IS STILL ONE
                 setPlaceholder({
                     ...placeholder, 0: "coworker's name"
                 })
@@ -160,11 +139,19 @@ const Tipout = () => {
         setPromptIndex(promptIndex + 1);
     };
 
+
+    // MAKE TIPOUT LOGIC REACT TO PROMPTINDEX CHANGES INSTEAD OF CLICK
+    useEffect(() => {
+
+    }, [promptIndex])
+    //
+
     useEffect(() => {
         let active_inputs = handleActiveInputs(activeInputs);
         setInputsHidden(active_inputs);
     }, [activeInputs]);
 
+    // TEST
     useEffect(() => {
         console.log(tipoutData);
     }, [tipoutData]);

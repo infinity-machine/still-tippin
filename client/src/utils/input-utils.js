@@ -18,7 +18,6 @@ const formatPlaceholders = (active_inputs, names) => {
         }
     };
 
-    console.log(updated_placeholders)
     return updated_placeholders;
 };
 

@@ -5,11 +5,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: black;
+  color: gold;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.core{
+  height: 480px;
+  width: 400px;
 }
 
 .margin_lock {
@@ -23,6 +30,7 @@ code {
 
 .flex_stack{
   flex-direction: column;
+  align-items: space-between;
 }
 
 .flex_center{
@@ -40,4 +48,30 @@ code {
 
 .txt_right{
   text-align: right;
+}
+
+.base{
+  height: 100vh;
+}
+
+.relative{
+  position: relative;
+}
+
+.absolute{
+  position: absolute;
+}
+
+.bottom{
+  bottom: 0;
+}
+
+.background-img{
+  background-image: url('assets/flamestippin2.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.flex-1{
+  flex: 1;
 }
