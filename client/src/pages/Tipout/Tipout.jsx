@@ -157,7 +157,7 @@ const Tipout = () => {
     }, [tipoutData]);
 
     return (
-        <div>
+        <div className="size">
             {tipoutData['total_cash'] ? < Preview tipoutData={tipoutData} /> : <></>}
             <h1>{promptArray[promptIndex]}</h1>
             {error ? <p>{error}</p> : <></>}
