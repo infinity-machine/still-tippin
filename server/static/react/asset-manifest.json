@@ -1,13 +1,16 @@
 {
   "files": {
-    "main.css": "/static/react/css/main.0260f2e1.css",
-    "main.js": "/static/react/js/main.c9e40f8d.js",
+    "main.css": "/static/react/css/main.ab147a24.css",
+    "main.js": "/static/react/js/main.ccea31db.js",
+    "media/flamestippin2.jpg": "/static/react/media/flamestippin2.ceb41c6c86e10db43582.jpg",
+    "media/TIPPIN-black.png": "/static/react/media/TIPPIN-black.20b3c6a63a05be7cb201.png",
+    "media/STILL-black.png": "/static/react/media/STILL-black.bc9bb94597c5a9c217b3.png",
     "../../templates/index.html": "/static/react/../../templates/index.html",
-    "main.0260f2e1.css.map": "/static/react/css/main.0260f2e1.css.map",
-    "main.c9e40f8d.js.map": "/static/react/js/main.c9e40f8d.js.map"
+    "main.ab147a24.css.map": "/static/react/css/main.ab147a24.css.map",
+    "main.ccea31db.js.map": "/static/react/js/main.ccea31db.js.map"
   },
   "entrypoints": [
-    "css/main.0260f2e1.css",
-    "js/main.c9e40f8d.js"
+    "css/main.ab147a24.css",
+    "js/main.ccea31db.js"
   ]
 }
