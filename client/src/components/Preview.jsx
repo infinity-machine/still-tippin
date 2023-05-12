@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 const Preview = (props) => {
     const [names, setNames] = useState([]);
     const [hours, setHours] = useState([]);
+    const [tips, setTips] = useState([]);
 
     useEffect(() => {
         if (!!props.tipoutData['hours']) {

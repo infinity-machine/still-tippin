@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Tipout.css';
 import { Form, Preview, CalculatedView } from '../../components';
 import {
     formatPlaceholders, filterInactiveInputs, inputsFilled, objectToArray, formatHoursData, handleActiveInputs
@@ -39,7 +38,7 @@ const Tipout = () => {
         e.preventDefault();
 
         // TOTAL CASH ?
-        
+
         if (promptIndex === 0) {
 
             if (!inputValue[0]) return setError('ENTER TOTAL CASH TIPS');
@@ -84,8 +83,6 @@ const Tipout = () => {
 
         // NAMES ?
         if (promptIndex === 2) {
-            // HANDLE ONE INPUT STUFF
-
             // GET EXISTING "USER" ENTRY IN HOURS OBJECT AND NAMES ARRAY
             let data_to_update = tipoutData['hours'];
             let names = [...tipoutData['names']];
@@ -157,22 +154,24 @@ const Tipout = () => {
     }, [tipoutData]);
 
     return (
-        <div className="size">
-            {tipoutData['total_cash'] ? < Preview tipoutData={tipoutData} /> : <></>}
+        <div>
             <h1>{promptArray[promptIndex]}</h1>
             {error ? <p>{error}</p> : <></>}
             {
                 showCalculated ? (
                     < CalculatedView tipoutData={tipoutData} />
                 ) : (
-                    < Form handleNext={handleNext}
-                        // handleBack={handleBack}
-                        inputValue={inputValue}
-                        setInputValue={setInputValue}
-                        inputType={inputType}
-                        placeholder={placeholder}
-                        inputsHidden={inputsHidden}
-                        buttonText={buttonText} />
+                    <div>
+                        {tipoutData['total_cash'] ? < Preview tipoutData={tipoutData} /> : <></>}
+                        < Form handleNext={handleNext}
+                            // handleBack={handleBack}
+                            inputValue={inputValue}
+                            setInputValue={setInputValue}
+                            inputType={inputType}
+                            placeholder={placeholder}
+                            inputsHidden={inputsHidden}
+                            buttonText={buttonText} />
+                    </div>
                 )
             }
         </div>
