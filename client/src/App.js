@@ -5,12 +5,8 @@ function App() {
   const [tipoutMode, setTipoutMode] = useState(false);
 
   return (
-    <div className="base flex_container flex_center">
-      <div className="relative">
-        {
-          tipoutMode ? < Tipout /> : < Home tipoutMode={tipoutMode} setTipoutMode={setTipoutMode} />
-        }
-      </div>
+    <div className="relative">
+        < Tipout />
     </div>
   );
 };

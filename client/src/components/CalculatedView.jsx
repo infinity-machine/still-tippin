@@ -6,7 +6,7 @@ const CalculatedView = (props) => {
   const [tips, setTips] = useState([]);
 
   const runItBack = () => {
-    window.location.reload();
+    window.location.reload('/tipout');
   }
 
   useEffect(() => {
