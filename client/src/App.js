@@ -5,8 +5,12 @@ function App() {
   const [tipoutMode, setTipoutMode] = useState(false);
 
   return (
-    <div className="relative">
-        < Tipout />
+    <div className="margin_lock window">
+      {
+        tipoutMode ? (
+          <Tipout tipoutMode={tipoutMode} setTipoutMode={setTipoutMode}/>
+        ) : <Home tipoutMode={tipoutMode} setTipoutMode={setTipoutMode}/>
+      }
     </div>
   );
 };

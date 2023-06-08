@@ -9,7 +9,7 @@ const Home = (props) => {
     const handleClick = () => props.setTipoutMode(true)
 
     return (
-        <div className="size flex_container flex_stack background-img">
+        <div className="square flex_center flex_container flex_stack background-img">
             <img src={still}
                 alt="still"
                 id="still-img"

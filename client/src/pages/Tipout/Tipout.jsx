@@ -155,8 +155,10 @@ const Tipout = () => {
 
     return (
         <div>
-            <h1>{promptArray[promptIndex]}</h1>
-            {error ? <p>{error}</p> : <></>}
+            <div className="txt_center">
+                <h1>{promptArray[promptIndex]}</h1>
+                {error ? <p>{error}</p> : <></>}
+            </div>
             {
                 showCalculated ? (
                     < CalculatedView tipoutData={tipoutData} />
